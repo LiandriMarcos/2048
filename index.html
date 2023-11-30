@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="googlebot" content="noarchive">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta name="author" content="Liandri Marcos">
+    <meta name="keywords" content="Jogo, 2048, blocos, somar, game"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="shortcut icon" href="img/cube-alt-solid-60.ico" type="image/x-icon">
+    <title>2048</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container hide">
+      <div class="heading">
+        <h1>2048</h1>
+        <div class="score-container">
+          Pontuação:
+          <span id="score">0</span>
+        </div> <!--score-container-->
+      </div> <!--heading-->
+      <div class="grid"></div>
+      <p class="teclas">Teclas utilizáveis:</p>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAYxJREFUaEPtmM1twkAQRmdtrlADpdBAaAHSBViRklzchkuIZApwKZQQCd9xtIksIcd/O4PW2m+HqzXaefPGHwuGIvuYyHhJgdGNq2E1DDYBXWkwof9w1LAaBpuArjSYUA2tRVb6VmbFZp+/LrFN3oHr8lwRmd16n3s/2w7Y26HfX6ftKjWFhbUHQwP/wSbXxxWGBa4vbztq7lX3fYUEvpXZ0RAVfeEEB2yT2BAdh5IYCrhN4rGvHQjgbhJDA/clMSzwUBJDAo8lMRzwVBKP3pUNfXDv0uuX/JNby75azkliblNTdZKEdwZ2SeKpxrnPvQOnaVIZoi23YWmdV2Db7K/lVXKghv8eSqC9Az8FOrTQag3Vl+ydY1piSbIdzqHVd1hUF492APa9dgmzoA1zoCGAXcIMBnguNBTwnASHBLbgUf2JNxZmsIaHoOGBu2EWBfAjtORH/OJXS0kDvmufcpf23bTkPAWWTC+EWjUcgiVJj2pYMr0QatVwCJYkPaphyfRCqFXDIViS9Bid4R9gbIk9hF6n1gAAAABJRU5ErkJggg=="/>
+
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAahJREFUaEPtmE1OAkEUhF+jWxbeAG8CB2DhDTiGTkwcE2O8BfEEJsMB8CZwAxNmOz+mjTESEbrn/dCZKbb0dPqrqtcF42hgHzcwXgJw3x2Hw3C4Zwog0j0z9A8OHIbDPVPgLJH+eLudeB2vbl621nqeBbgs7tYtuUldNzNraHNgD0vkpl/OOsqrqnm1hDYF3hXZ0hEt9mLsKB/Pnx+tom0GvCuyhSNaHgQzhDYBLlf3U2qb9VEX3Wg2nj+9azutDuxv5MuL0SYEpKqba+15VgWOgfWCtERb7ZtbFXjvRg6x2ABaDbgL7I8minWlAnywfgId/g2tUVfiwEfrJwFoUeCg+omGlq0rMeDYGzmGW7KuRIA1YaXrSgSYdSMHWi3V0WxgC1jJumIBi9RPoMNSdcUCjj1rucoeqKV8EH8PPSSAv996aPyi+i99iHTsXMasR6QR6Zi8dFuLGe6mW9hTmGHMcFhSOKswwxz1Tj2LGcYMn8oI/3vTGeYfl78DgPkapr0DHE7bH/7p4DBfw7R3gMNp+8M/HRzma5j2DnA4bX/4p4PDfA3T3uETeEThPbfaqgAAAAAASUVORK5CYII="/>
+       
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAbRJREFUaEPtWN1twjAQPsNzInUDukkZgEjdoGzR8lIqVWnHYINKdADYpGxQqQzgyqqQCjFKfL4zOPnywkN88X0/vi/B0MAuMzC8BMB9VxwKQ+GeMQBL90zQBhwoDIV7xgAs3TNBMbSSWnr/uXgmS8sj2g0ti1n9kspZAKzJNBR27MLSmh5z/Ca8YGlYWt9usLQmxzjDOMOa/vp7Ns6wJsc4w7mdYa9imhYhIku0Kqt6zt0m+gzv108bInPHbSCszm6L6m0aVnO8Ohqwe9zPevFliCYxjbTVWqJdWdW3beva7osA/v54nIzHo40WaCmworGkCtqMpsXsddumXpf7IgofNnJDzFp6EFVaEKyowv9BN/6o60K9Z40lmpdVvWKWe8tEFZYEHRs/50hSAew2i4ur+PhJDpgbV5IT2QdaTWG3Wejk1garMrROWQ0CLTyRkyscFFcJwCZRuMvk1oifiwyt0019X1da8XMVgJtxpRc/VwP4EFfuV+LrJ/QtTDWWzjXjJvfN/fsutFmJ9RcBLNE49xkAzGUulzoonItS3D6hMJe5XOqgcC5KcfuEwlzmcqkbnMK//tbHPSs/m3kAAAAASUVORK5CYII="/>
+       
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAXlJREFUaEPtmM0JwkAQRme9J2AJlpICDFhC2shFBYl2YWrQBizFGvSsKyvoRRCc2Z9v18k5Q/bNm3wZYujPLvNnvKTApRtXw2q4sA7oSBcm9ANHDavhwjqgI12YUA2tZCN9PfbLaj6sY09UOuBDb4nsqWq3TUzoxMBEluh8u92b6WJ3jgGeHNhBxoSGAH5BG0Nj6PcaBjgWNBTw+x02tAplGhP4SR4mwYGBw4QZNHCIBIcH9h1mWQD7hBYBu32YvR1ZWrFqhQkuA37uwykufoJnCsxP8KyB63aY/TpfmQKnGukEoWWJxrodul/Nvu4XGeY+1NVdGYFnibq6HUbJc/MBNpOmmm9OElhXCw/sfg4YM+l8wMIDO1hOEn+bAmDD/CTODliaxFkB+0jifIA9JTE8sO8khgYOkcTAwGGSGBL4cuj3kp2Yu3El+w5zDyytU2BpB9Hr1TC6Ien51LC0g+j1ahjdkPR8aljaQfR6NYxuSHo+NSztIHr9AzSuyD1MHBeSAAAAAElFTkSuQmCC"/>
+      
+    </div> <!--container hide-->
+
+    <div class="cover-screen">
+      <h2 id="over-text" class="hide">Fim de jogo</h2>
+      <p id="result"></p>
+      
+      <h3 class="titulo"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAA45JREFUeF7tnVFuGjEQhmer9GFvkdwkXKTQcwQpPCTnCJwk3CTcgodW2gjabaVKxWPP/B7veHhld8ee7/+8IAwMFA/TDgym1aM4BQDjEASAAGDcAePyYUAAMO6AcfkwIAAYd8C4fBgQAIw7YFw+DOgBwHm3uacf0zMRPdJA98ZzTpU/Ek1HuvtyGHf7U+pg6fNwA67N/zm9XZu/pMdEJ/o6rNAQ8AC26/fFNf9vUI7jy2GFzA0UwO/0fyAnAL/23fCAtAALYNnpn9lCLYABcJH+GQHQAhwAH+mHWwAB4Cr9YAswAMrSD11rb92sz9vNI9F0ebV26wEZnzoAUfqBa23q1dL5af2RfJMIGJ8+gLL0w9faJAAjC1QBiNIPXmtTAC7PW1igC0CW/i4tUAOgkv4OLdADoJP+7ixQAaCa/s4s0AGgm/6uLBADgKS/IwvkADDp78YCEQBo+juxQAYAm/4uLCgGUCX9HVhQDqBO+t1bUASgavqdW1AGoG76XVuQDcAk/Y4tyAdgk363FmQBME2/UwvyANim36UFbABNpN+hBXwAbaTfnQUsAE2l35kFPABtpZ/z+XoLx7D2ESUBNJn+FtrLGQNjH1EawPbbM9Gw49SLY/7pwET78fXw/VZfGADWUzS2uAPJZSgNgLNlr3h8zk+c6DS+Hh5kBjyt32igjfNWYaanswSxdg5jJrD4qw6r8WV/FBlwOZm1Z3LxzVKeAGP5uVRM3gOuAHg7h5VnkLpcOl2pK5Q+f2a9L+KNjwWgOQuY6Spt8K3zWO+LMsbHB9CUBbx0QQAopp+9BM0TaeJekJEubQDa6c8H0IQFftKfDcD8XuAs/WUATC3wlf4iAGYWOEx/OQATC/ylvxhAdQucpl8GoKoFPtMvAlDNAsfplwOoYoHf9IsBwC1wnn4dAFALfKdfBQDMgg7SrwcAYoH/9KsBULegk/TrAlC1oI/0qwJQs6Cj9OsDULGgn/SrAxBb0Fn6MQBEFvSVfgiAYgs6TD8OgMgC7Y/Sta6HsZO9LSV3Gk3soMgd9P+OB9qJA+DKAkz6YUvQHCQXFgDTjwfgwgJc+uEAil8Raa3d8uskv+EiLQG7B/xZhn79g9J78oexpTPRPh+89MzDhQO4WrCsv7EiYnyzRYt3FQBag/V4nQBgTDUABADjDhiXDwMCgHEHjMuHAQHAuAPG5cOAAGDcAePyYUAAMO6AcflP7JXZf6ib7yoAAAAASUVORK5CYII="/> 2048</h2>
+
+      <div class="intrucoes">
+        <h4 class="intrucoesH">Utilize para jogar</h2> 
+        <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAYxJREFUaEPtmM1twkAQRmdtrlADpdBAaAHSBViRklzchkuIZApwKZQQCd9xtIksIcd/O4PW2m+HqzXaefPGHwuGIvuYyHhJgdGNq2E1DDYBXWkwof9w1LAaBpuArjSYUA2tRVb6VmbFZp+/LrFN3oHr8lwRmd16n3s/2w7Y26HfX6ftKjWFhbUHQwP/wSbXxxWGBa4vbztq7lX3fYUEvpXZ0RAVfeEEB2yT2BAdh5IYCrhN4rGvHQjgbhJDA/clMSzwUBJDAo8lMRzwVBKP3pUNfXDv0uuX/JNby75azkliblNTdZKEdwZ2SeKpxrnPvQOnaVIZoi23YWmdV2Db7K/lVXKghv8eSqC9Az8FOrTQag3Vl+ydY1piSbIdzqHVd1hUF492APa9dgmzoA1zoCGAXcIMBnguNBTwnASHBLbgUf2JNxZmsIaHoOGBu2EWBfAjtORH/OJXS0kDvmufcpf23bTkPAWWTC+EWjUcgiVJj2pYMr0QatVwCJYkPaphyfRCqFXDIViS9Bid4R9gbIk9hF6n1gAAAABJRU5ErkJggg=="/>
+
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAahJREFUaEPtmE1OAkEUhF+jWxbeAG8CB2DhDTiGTkwcE2O8BfEEJsMB8CZwAxNmOz+mjTESEbrn/dCZKbb0dPqrqtcF42hgHzcwXgJw3x2Hw3C4Zwog0j0z9A8OHIbDPVPgLJH+eLudeB2vbl621nqeBbgs7tYtuUldNzNraHNgD0vkpl/OOsqrqnm1hDYF3hXZ0hEt9mLsKB/Pnx+tom0GvCuyhSNaHgQzhDYBLlf3U2qb9VEX3Wg2nj+9azutDuxv5MuL0SYEpKqba+15VgWOgfWCtERb7ZtbFXjvRg6x2ABaDbgL7I8minWlAnywfgId/g2tUVfiwEfrJwFoUeCg+omGlq0rMeDYGzmGW7KuRIA1YaXrSgSYdSMHWi3V0WxgC1jJumIBi9RPoMNSdcUCjj1rucoeqKV8EH8PPSSAv996aPyi+i99iHTsXMasR6QR6Zi8dFuLGe6mW9hTmGHMcFhSOKswwxz1Tj2LGcYMn8oI/3vTGeYfl78DgPkapr0DHE7bH/7p4DBfw7R3gMNp+8M/HRzma5j2DnA4bX/4p4PDfA3T3uETeEThPbfaqgAAAAAASUVORK5CYII="/>
+       
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAbRJREFUaEPtWN1twjAQPsNzInUDukkZgEjdoGzR8lIqVWnHYINKdADYpGxQqQzgyqqQCjFKfL4zOPnywkN88X0/vi/B0MAuMzC8BMB9VxwKQ+GeMQBL90zQBhwoDIV7xgAs3TNBMbSSWnr/uXgmS8sj2g0ti1n9kspZAKzJNBR27MLSmh5z/Ca8YGlYWt9usLQmxzjDOMOa/vp7Ns6wJsc4w7mdYa9imhYhIku0Kqt6zt0m+gzv108bInPHbSCszm6L6m0aVnO8Ohqwe9zPevFliCYxjbTVWqJdWdW3beva7osA/v54nIzHo40WaCmworGkCtqMpsXsddumXpf7IgofNnJDzFp6EFVaEKyowv9BN/6o60K9Z40lmpdVvWKWe8tEFZYEHRs/50hSAew2i4ur+PhJDpgbV5IT2QdaTWG3Wejk1garMrROWQ0CLTyRkyscFFcJwCZRuMvk1oifiwyt0019X1da8XMVgJtxpRc/VwP4EFfuV+LrJ/QtTDWWzjXjJvfN/fsutFmJ9RcBLNE49xkAzGUulzoonItS3D6hMJe5XOqgcC5KcfuEwlzmcqkbnMK//tbHPSs/m3kAAAAASUVORK5CYII="/>
+       
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAXlJREFUaEPtmM0JwkAQRme9J2AJlpICDFhC2shFBYl2YWrQBizFGvSsKyvoRRCc2Z9v18k5Q/bNm3wZYujPLvNnvKTApRtXw2q4sA7oSBcm9ANHDavhwjqgI12YUA2tZCN9PfbLaj6sY09UOuBDb4nsqWq3TUzoxMBEluh8u92b6WJ3jgGeHNhBxoSGAH5BG0Nj6PcaBjgWNBTw+x02tAplGhP4SR4mwYGBw4QZNHCIBIcH9h1mWQD7hBYBu32YvR1ZWrFqhQkuA37uwykufoJnCsxP8KyB63aY/TpfmQKnGukEoWWJxrodul/Nvu4XGeY+1NVdGYFnibq6HUbJc/MBNpOmmm9OElhXCw/sfg4YM+l8wMIDO1hOEn+bAmDD/CTODliaxFkB+0jifIA9JTE8sO8khgYOkcTAwGGSGBL4cuj3kp2Yu3El+w5zDyytU2BpB9Hr1TC6Ien51LC0g+j1ahjdkPR8aljaQfR6NYxuSHo+NSztIHr9AzSuyD1MHBeSAAAAAElFTkSuQmCC"/></p>
+      </div> <!--instrucoes-->
+
+      <button id="start-button">Começar</button>
+    </div> <!--cover-screen-->
+
+    <!-- Script -->
+    <script src="script.js"></script>
+  </body>
+
+</html>
